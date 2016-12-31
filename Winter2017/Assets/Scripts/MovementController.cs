@@ -7,6 +7,7 @@ public class MovementController : MonoBehaviour {
     public Rigidbody rb;
     public float moveSpeed = 5;
     public float turnSpeed = 50;
+    public float jumpHeight = 100;
 
 	// Use this for initialization
 	void Start ()
@@ -19,6 +20,7 @@ public class MovementController : MonoBehaviour {
     {
         WASDControls();
         MouseRotation();
+        Jump();
     }
 
     void WASDControls()
@@ -48,5 +50,13 @@ public class MovementController : MonoBehaviour {
         Quaternion newRotation = Quaternion.identity;
         newRotation.eulerAngles = new Vector3(0, Input.GetAxis("Mouse X") * turnSpeed * Time.deltaTime, 0);
         rb.MoveRotation(rb.rotation * newRotation);
+    }
+
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector3.up * jumpHeight * Time.deltaTime, ForceMode.Impulse);
+        }
     }
 }
