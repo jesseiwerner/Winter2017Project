@@ -5,14 +5,18 @@ using UnityEngine;
 public class MovementController : MonoBehaviour {
 
     public Rigidbody rb;
+    public Transform cameraTransform;
     public float moveSpeed = 5;
     public float turnSpeed = 50;
+    public float verticalCameraSpeed = -4;
     public float jumpHeight = 100;
+    public GameObject cameraAnchor;
 
 	// Use this for initialization
 	void Start ()
     {
         rb = GetComponent<Rigidbody>();
+        cameraTransform = cameraAnchor.GetComponent<Transform>();
 	}
 	
 	// Update is called once per frame
@@ -47,9 +51,13 @@ public class MovementController : MonoBehaviour {
 
     void MouseRotation()
     {
+        // Horizontal Rotation For the Character
         Quaternion newRotation = Quaternion.identity;
         newRotation.eulerAngles = new Vector3(0, Input.GetAxis("Mouse X") * turnSpeed * Time.deltaTime, 0);
         rb.MoveRotation(rb.rotation * newRotation);
+
+        // Vertical Rotation for the Camera
+        cameraTransform.Rotate(new Vector3(Input.GetAxis("Mouse Y") * turnSpeed * Time.deltaTime * verticalCameraSpeed, 0, 0));
     }
 
     void Jump()
