@@ -32,8 +32,10 @@ public class ProjectileLauncher : MonoBehaviour {
                 // Create a rotation from the direction vector.
                 Quaternion r = Quaternion.LookRotation(orientation);
 
+
                 // Spawn the projectile in the direction of the ray.
-                Instantiate(spawn, transform.position, r);
+                GameObject newProjectile = Instantiate(spawn, transform.position, r);
+                newProjectile.GetComponent<SmallCube>().SetTeam(gameObject.GetComponent<PlayerHealth>().GetTeamAssignment());
             }
             else
             {
