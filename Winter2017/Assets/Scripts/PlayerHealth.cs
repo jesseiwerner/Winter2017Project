@@ -15,7 +15,8 @@ public class PlayerHealth : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		if (health <= 0)
+        gameObject.GetComponentInChildren<TextMesh>().text = "" + health;
+        if (health <= 0)
         {
             Destroy(this.gameObject);
         }
