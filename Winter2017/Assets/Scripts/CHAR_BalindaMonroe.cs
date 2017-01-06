@@ -6,14 +6,20 @@ public class CHAR_BalindaMonroe : MonoBehaviour
 {
 
     public Camera cam;
-
+    public Rigidbody rb;
+    public Transform transf;
     public GameObject PROJ_SacredWind;
+
+    public float floatStrength = 800.0f;
+    public float buffetStrength = 25.0f;
 
 
     // Use this for initialization
     void Start()
     {
         gameObject.name = "PLAYER_Balinda";
+        rb = GetComponent<Rigidbody>();
+        transf = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -22,6 +28,16 @@ public class CHAR_BalindaMonroe : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             BM_W1_SacredWind();
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            BM_Passive_Float();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            BM_A1_Buffet();
         }
     }
 
@@ -59,7 +75,8 @@ public class CHAR_BalindaMonroe : MonoBehaviour
     //A1 = Ability 1
     void BM_A1_Buffet() //Buffet
     {
-
+        rb.AddForce(Vector3.up * buffetStrength, ForceMode.Impulse);
+        rb.AddForce(-1 * transf.forward * buffetStrength, ForceMode.Impulse);
     }
 
     void BM_A2_PrayerCircle() //Prayer Circle
@@ -75,5 +92,11 @@ public class CHAR_BalindaMonroe : MonoBehaviour
     void BM_Ult_Ascension() //Ascension [ULTIMATE]
     {
 
+    }
+
+    //TODO:  Logic isn't correct here
+    void BM_Passive_Float()
+    {
+        //rb.AddForce(Vector3.up * floatStrength * Time.deltaTime);
     }
 }

@@ -7,20 +7,24 @@ public class MovementController : MonoBehaviour {
     public Rigidbody rb;
     public Transform cameraTransform;
     public float moveSpeed = 5;
+    float originalSpeed;
     public float turnSpeed = 50;
     public float verticalCameraSpeed = -4;
     public float jumpHeight = 100;
     public GameObject cameraAnchor;
+    public GameObject theGroundedChecker;
 
 	// Use this for initialization
 	void Start ()
     {
         rb = GetComponent<Rigidbody>();
         cameraTransform = cameraAnchor.GetComponent<Transform>();
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        Cursor.lockState = CursorLockMode.Locked;
+        originalSpeed = moveSpeed;
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         WASDControls();
         MouseRotation();
@@ -62,9 +66,25 @@ public class MovementController : MonoBehaviour {
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && theGroundedChecker.GetComponent<GroundedChecker>().GetIsGrounded())
         {
             rb.AddForce(Vector3.up * jumpHeight * Time.deltaTime, ForceMode.Impulse);
+        }
+    }
+
+    //I'll think about this more later I'm lazy right now
+    public void ChangeSpeed(float strength, float duration)
+    {
+        float newSpeed = moveSpeed * strength;
+        float timer = 0.0f;
+        timer += Time.deltaTime;
+        if (timer <= duration)
+        {
+            moveSpeed = newSpeed;
+        }
+        else if (timer > duration)
+        {
+            moveSpeed = originalSpeed;
         }
     }
 }
