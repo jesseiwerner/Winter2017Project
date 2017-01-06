@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PROJ_BM_SacredWind : MonoBehaviour {
+public class PROJ_BM_SacredWind : MonoBehaviour
+{
 
     float lifeTimer = 10.0f;
     public float speed = 45.0f;
@@ -39,18 +40,22 @@ public class PROJ_BM_SacredWind : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject != owner)
+        PlayerHealth ph = other.GetComponent<PlayerHealth>();
+        if (ph != null)
         {
-            PlayerHealth ph = other.GetComponent<PlayerHealth>();
-            if (ph != null)
+            if (ph.GetTeamAssignment() != teamAssignment)
             {
-                if (ph.GetTeamAssignment() != teamAssignment)
-                {
-                    ph.TakeDamage(50);
-                }
-                else if (ph.GetTeamAssignment() == teamAssignment)
+                ph.TakeDamage(50);
+            }
+            else if (ph.GetTeamAssignment() == teamAssignment)
+            {
+                if (other.gameObject != owner)
                 {
                     ph.GainHealth(100);
+                }
+                else
+                {
+                    ph.GainHealth(25);
                 }
             }
         }
