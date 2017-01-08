@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\GroundedChecker.cs" />
     <Compile Include="Assets\Scripts\LookAtCamera.cs" />
     <Compile Include="Assets\Scripts\MovementController.cs" />
+    <Compile Include="Assets\Scripts\PROJ_BM_Buffet.cs" />
     <Compile Include="Assets\Scripts\PROJ_BM_SacredWind.cs" />
     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\ProjectileLauncher.cs" />

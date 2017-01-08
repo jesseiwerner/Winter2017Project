@@ -64,7 +64,7 @@ public class MovementController : MonoBehaviour {
         cameraTransform.Rotate(new Vector3(Input.GetAxis("Mouse Y") * turnSpeed * Time.deltaTime * verticalCameraSpeed, 0, 0));
     }
 
-    void Jump()
+    public void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && theGroundedChecker.GetComponent<GroundedChecker>().GetIsGrounded())
         {
