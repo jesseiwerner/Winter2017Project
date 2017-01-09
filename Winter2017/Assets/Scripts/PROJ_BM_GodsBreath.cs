@@ -9,6 +9,8 @@ public class PROJ_BM_GodsBreath : MonoBehaviour {
     public float boostDuration = 2.0f;
     public float lifeTimer = 0.25f;
 
+
+
 	// Use this for initialization
 	void Start () {
 		

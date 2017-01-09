@@ -15,8 +15,19 @@ public class CHAR_BalindaMonroe : MonoBehaviour
     public GameObject PROJ_SacredWind;
     public GameObject PROJ_Buffet;
     public GameObject PROJ_GodsBreath;
+    //Passive
     public float floatStrength = -0.8f;
+    //Buffet
     public float buffetStrength = 15.0f;
+    //Ascension
+    public bool isAscending;
+    public float ascensionHeight = 10.0f;
+    public float ascensionYPos;
+    public float landingYPos;
+    float ascensionTimer = 8.0f;
+    public float ascensionTimerValue = 8.0f;
+
+
 
 
     // Use this for initialization
@@ -26,6 +37,9 @@ public class CHAR_BalindaMonroe : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         transf = GetComponent<Transform>();
         theGroundedChecker = GetComponentInChildren<GroundedChecker>();
+        ascensionTimer = 0.0f;
+        landingYPos = gameObject.transform.position.y;
+
     }
 
     // Update is called once per frame
@@ -47,6 +61,14 @@ public class CHAR_BalindaMonroe : MonoBehaviour
         {
             BM_A3_GodsBreath();
         }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ascensionYPos = gameObject.transform.position.y + ascensionHeight;
+            ascensionTimer = ascensionTimerValue;
+            isAscending = true;
+        }
+        BM_Ult_Ascension();
+        Debug.Log(ascensionTimer);
     }
 
     //BM = Balinda Monroe
@@ -104,7 +126,22 @@ public class CHAR_BalindaMonroe : MonoBehaviour
 
     void BM_Ult_Ascension() //Ascension [ULTIMATE]
     {
-
+        if (ascensionTimer <= 0)
+        {
+            isAscending = false;
+        }
+        if (isAscending)
+        {
+            Vector3 flyingPos = new Vector3(gameObject.transform.position.x, ascensionYPos, gameObject.transform.position.z);
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, flyingPos, Time.time / 5);
+            rb.useGravity = false;
+        }
+        else if (!isAscending)
+        {
+            //Vector3 landingPos = new Vector3(gameObject.transform.position.x, landingYPos, gameObject.transform.position.z);
+            //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, landingPos, Time.time / 5);
+        }
+        ascensionTimer -= Time.deltaTime;
     }
 
     //TODO:  Logic isn't correct here

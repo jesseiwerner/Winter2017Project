@@ -34,7 +34,6 @@ public class MovementController : MonoBehaviour {
         WASDControls();
         MouseRotation();
         Jump();
-        Debug.Log(modifiedSpeed);
     }
 
     void WASDControls()
