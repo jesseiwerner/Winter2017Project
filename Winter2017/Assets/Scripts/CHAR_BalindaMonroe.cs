@@ -14,6 +14,7 @@ public class CHAR_BalindaMonroe : MonoBehaviour
     //Abilities
     public GameObject PROJ_SacredWind;
     public GameObject PROJ_Buffet;
+    public GameObject PROJ_GodsBreath;
     public float floatStrength = -0.8f;
     public float buffetStrength = 15.0f;
 
@@ -41,6 +42,10 @@ public class CHAR_BalindaMonroe : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             BM_A1_Buffet();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            BM_A3_GodsBreath();
         }
     }
 
@@ -93,7 +98,8 @@ public class CHAR_BalindaMonroe : MonoBehaviour
 
     void BM_A3_GodsBreath() //God's Breath
     {
-
+        GameObject newProjectile = Instantiate(PROJ_GodsBreath, transform.position , transform.rotation);
+        newProjectile.GetComponent<PROJ_BM_GodsBreath>().SetTeam(gameObject.GetComponent<PlayerHealth>().GetTeamAssignment());
     }
 
     void BM_Ult_Ascension() //Ascension [ULTIMATE]

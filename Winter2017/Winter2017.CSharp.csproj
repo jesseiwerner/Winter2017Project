@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\LookAtCamera.cs" />
     <Compile Include="Assets\Scripts\MovementController.cs" />
     <Compile Include="Assets\Scripts\PROJ_BM_Buffet.cs" />
+    <Compile Include="Assets\Scripts\PROJ_BM_GodsBreath.cs" />
     <Compile Include="Assets\Scripts\PROJ_BM_SacredWind.cs" />
     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\ProjectileLauncher.cs" />

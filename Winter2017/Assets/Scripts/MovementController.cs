@@ -13,6 +13,10 @@ public class MovementController : MonoBehaviour {
     public float jumpHeight = 100;
     public GameObject cameraAnchor;
     public GameObject theGroundedChecker;
+    float modifiedSpeed;
+
+    public List<float> speedMod = new List<float>();
+    public List<float> modDurations = new List<float>();
 
 	// Use this for initialization
 	void Start ()
@@ -26,29 +30,38 @@ public class MovementController : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        UpdateSpeedModifier();
         WASDControls();
         MouseRotation();
         Jump();
+        Debug.Log(modifiedSpeed);
     }
 
     void WASDControls()
     {
+        // Adjust the speed for each speed mod on the character
+        modifiedSpeed = moveSpeed;
+        foreach (float mod in speedMod)
+        {
+            modifiedSpeed *= mod;
+        }
+
         Vector3 newPosition = transform.position;
         if (Input.GetKey(KeyCode.W))
         {
-            newPosition += transform.forward * moveSpeed * Time.deltaTime;
+            newPosition += transform.forward * modifiedSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            newPosition -= transform.forward * moveSpeed * Time.deltaTime;
+            newPosition -= transform.forward * modifiedSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            newPosition -= transform.right * moveSpeed * Time.deltaTime;
+            newPosition -= transform.right * modifiedSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            newPosition += transform.right * moveSpeed * Time.deltaTime;
+            newPosition += transform.right * modifiedSpeed * Time.deltaTime;
         }
         rb.MovePosition(newPosition);
     }
@@ -72,19 +85,23 @@ public class MovementController : MonoBehaviour {
         }
     }
 
-    //I'll think about this more later I'm lazy right now
     public void ChangeSpeed(float strength, float duration)
     {
-        float newSpeed = moveSpeed * strength;
-        float timer = 0.0f;
-        timer += Time.deltaTime;
-        if (timer <= duration)
+        speedMod.Add(strength);
+        modDurations.Add(duration);
+    }
+
+    void UpdateSpeedModifier()
+    {
+        for (int i = 0; i < speedMod.Count; i++)
         {
-            moveSpeed = newSpeed;
-        }
-        else if (timer > duration)
-        {
-            moveSpeed = originalSpeed;
+            modDurations[i] -= Time.deltaTime;
+            if (modDurations[i] < 0)
+            {
+                modDurations.RemoveAt(i);
+                speedMod.RemoveAt(i);
+                i -= 1;
+            }
         }
     }
 }
