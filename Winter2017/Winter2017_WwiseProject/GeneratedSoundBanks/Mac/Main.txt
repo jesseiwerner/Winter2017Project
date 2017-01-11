@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2752533807	Play_TestSound			\Default Work Unit\Play_TestSound	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	925337075	TestSound	C:\Users\Thomas\Desktop\RiftRepo\Winter2017Project\Winter2017\Winter2017_WwiseProject\.cache\Mac\SFX\KandiGathered_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\TestSound		264504
+

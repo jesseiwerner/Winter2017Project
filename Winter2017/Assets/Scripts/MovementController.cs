@@ -25,6 +25,7 @@ public class MovementController : MonoBehaviour {
         cameraTransform = cameraAnchor.GetComponent<Transform>();
         Cursor.lockState = CursorLockMode.Locked;
         originalSpeed = moveSpeed;
+        AkSoundEngine.PostEvent("Play_TestSound", gameObject);
     }
 
     // Update is called once per frame
